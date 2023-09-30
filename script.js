@@ -1,0 +1,1 @@
+console.log("OM NAMAH SHIVAYAH");
