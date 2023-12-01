@@ -1,7 +1,43 @@
 div{
-    border: 2px solid green;
+    border: 2px solid black;
+}
+.body{
+    border-color: white;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 #grid-container{
-display: grid;
-grid-template-columns: auto auto auto;
+    display: grid;
+    aspect-ratio: 1;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 40vw;
+    /* height: 50vh; */
+}
+.box{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+     
+}
+.ele{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e74c3c;
+}
+#resetb{
+    text-align: center;
+    display: block;
+    color: red;
+}
+
+@media  only screen and (max-width:430px)  {
+    #grid-container{
+
+        width:65vw;
+    }
+    
 }
