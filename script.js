@@ -49,9 +49,21 @@ const BigBoxValidator=()=>{
 }
 
 const SmallBoxValidator=(box,curr)=>{
-    console.log(document.getElementById(box));
     let boxes=document.getElementById(box).children;
-    console.log(boxes);
+    let f=0;
+    for(let sbox of boxes){
+        if(sbox.innerHTML===""){
+            f=1;
+            break;
+        }
+    }
+    if(f===0){
+        document.getElementById(box).innerHTML = "D";
+            document.getElementById(box).classList.add("winner-X");
+            game[box-1]="D";
+            BigBoxValidator()
+            console.log(game);
+    }
     for( let x of WinningCombinations){
         if( boxes[x[0]] && boxes[x[0]].innerHTML==curr && boxes[x[0]].innerHTML==boxes[x[1]].innerHTML && boxes[x[1]].innerHTML==boxes[x[2]].innerHTML){
             document.getElementById(box).innerHTML = curr;
