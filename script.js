@@ -1,4 +1,5 @@
-console.log("OM NAMAH SHIVAYAH");
+
+document.addEventListener('DOMContentLoaded', () => {
 symbols=["X","O"];
 currentsymbol=0;
 currentPlayArea="";
@@ -14,25 +15,50 @@ const WinningCombinations = [
 ]
 let game=["","","","","","","","",""];
 const PlayAreaMarker=()=>{
+    if(game[parseInt(currentPlayArea)-1]===""){
     document.getElementById(currentPlayArea).style.borderBlockColor="white";
+    const allBoxes = document.querySelectorAll('.box');
+        allBoxes.forEach(box => {
+            if (box.id !== currentPlayArea) {
+                box.style.pointerEvents = 'none';
+                box.style.opacity = '0.5'; 
+            }
+        });
+}
 }
 const PlayAreaDeMarker=()=>{
-    if(currentPlayArea)
+    if(currentPlayArea){
     document.getElementById(currentPlayArea).style.borderBlockColor="black";
+    const allBoxes = document.querySelectorAll('.box');
+    allBoxes.forEach(box => {
+        box.style.pointerEvents = 'auto';
+        box.style.opacity = '1';
+    });
+
+    }
 }
 const BigBoxValidator=()=>{
-    let boxes=document.getElementById(box).children;
+    for( let x of WinningCombinations){
+        if((game[x[0]]==='X' || game[x[0]]==='O') && game[x[0]]===game[x[1]] && game[x[1]]===game[x[2]]){
+            console.log("Full Win");
+            document.getElementById('you-win-page').style.display="flex";
+            document.getElementById('you-win-text').innerHTML=`${game[x[0]]} Wins!!!`;
+        }
+    }    
 
 }
 
 const SmallBoxValidator=(box,curr)=>{
+    console.log(document.getElementById(box));
     let boxes=document.getElementById(box).children;
-    console.log(boxes[0].innerHTML);
+    console.log(boxes);
     for( let x of WinningCombinations){
-        if( boxes[x[0]].innerHTML==curr && boxes[x[0]].innerHTML==boxes[x[1]].innerHTML && boxes[x[1]].innerHTML==boxes[x[2]].innerHTML){
-            console.log("win");
-            document.getElementById(box).innerHTML=curr;
+        if( boxes[x[0]] && boxes[x[0]].innerHTML==curr && boxes[x[0]].innerHTML==boxes[x[1]].innerHTML && boxes[x[1]].innerHTML==boxes[x[2]].innerHTML){
+            document.getElementById(box).innerHTML = curr;
+            document.getElementById(box).classList.add(curr === "X" ? "winner-X" : "winner-O");
             game[box-1]=curr;
+            BigBoxValidator()
+            console.log(game);
         }
     }
 
@@ -40,16 +66,25 @@ const SmallBoxValidator=(box,curr)=>{
 }
 document.getElementById("grid-container").onclick=e=>{
     PlayAreaDeMarker();
-    console.log(e.target.id);
+    if(!e.target.disabled){
     e.target.innerHTML=symbols[currentsymbol];
-    //console.log(e.target.innerHTML);
-    SmallBoxValidator(e.target.id[0],symbols[currentsymbol]);
+    e.target.disabled=true;
+    currentBox=e.target.id;
+    SmallBoxValidator(currentBox[0],symbols[currentsymbol]);
     currentsymbol=currentsymbol?0:1;
-    currentPlayArea=e.target.id[2];
-    console.log(currentPlayArea);
+    currentPlayArea=currentBox[2];
     PlayAreaMarker();
+    }
 
 
 }
+document.getElementById('play-again-link').addEventListener('click', () => {
+    game = ["", "", "", "", "", "", "", "", ""];
+    currentsymbol = 0;
+    currentPlayArea = "";
+    window.location.reload();
+    document.getElementById('you-win-page').style.display="none";
+});
 
 
+});
