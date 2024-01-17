@@ -1,7 +1,107 @@
 div{
-    border: 2px solid green;
+    border: 2px solid black;
+}
+.body{
+    border-color: white;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 #grid-container{
-display: grid;
-grid-template-columns: auto auto auto;
+    display: grid;
+    aspect-ratio: 1;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 40vw;
+}
+.box{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+     
+}
+.ele{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e74c3c;
+}
+.winner-X {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3498db;
+    color: #000; 
+    font-size: 5em; 
+}
+
+.winner-O {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3498db; 
+    color: #000;
+    font-size: 5em; 
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+#you-win-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(144, 238, 144, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: none;
+}
+
+.you-win-content {
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.you-win-content h1 {
+    color: green;
+}
+
+.you-win-content a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.you-win-content a:hover {
+    background-color: darkgreen;
+}
+
+@media  only screen and (max-width:430px)  {
+    #grid-container{
+
+        width:65vw;
+    }
+    
 }
