@@ -38,13 +38,27 @@ const PlayAreaDeMarker=()=>{
     }
 }
 const BigBoxValidator=()=>{
+    let drawFlag = true;
     for( let x of WinningCombinations){
         if((game[x[0]]==='X' || game[x[0]]==='O') && game[x[0]]===game[x[1]] && game[x[1]]===game[x[2]]){
             console.log("Full Win");
             document.getElementById('you-win-page').style.display="flex";
             document.getElementById('you-win-text').innerHTML=`${game[x[0]]} Wins!!!`;
+            drawFlag = false;
         }
-    }    
+    }
+    if (drawFlag) {
+        for (let i = 0; i < game.length; i++) {
+            if (game[i] === "") {
+                drawFlag = false;
+                break;
+            }
+        }
+    }
+    if (drawFlag) {
+        document.getElementById('you-win-page').style.display="flex";
+        document.getElementById('you-win-text').innerHTML="It's a Draw!";
+    }
 
 }
 
@@ -77,8 +91,8 @@ const SmallBoxValidator=(box,curr)=>{
 
 }
 document.getElementById("grid-container").onclick=e=>{
+    if(e.target.classList.contains('ele') && !e.target.disabled){
     PlayAreaDeMarker();
-    if(!e.target.disabled){
     e.target.innerHTML=symbols[currentsymbol];
     e.target.disabled=true;
     currentBox=e.target.id;
